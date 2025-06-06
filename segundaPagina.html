@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Escolha com o coração 💖</title>
+    <link rel="icon" type="image/png" href="heart-icon.png" />
+    <style>
+      /* Reset básico */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background-color: #fff1f2; /* cor rosa clara */
+        color: #9f1239; /* rosa escuro */
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
+        overflow-x: hidden;
+        user-select: none;
+        position: relative;
+      }
+
+      /* Navbar */
+      nav {
+        width: 100%;
+        background: linear-gradient(90deg, #e11d48, #db2777);
+        padding: 1rem 2rem;
+        box-shadow: 0 4px 6px rgba(219, 39, 119, 0.5);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+
+      nav .logo {
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: white;
+        user-select: none;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: filter 0.2s ease;
+      }
+
+      nav ul li a:hover,
+      nav ul li a:focus {
+        filter: brightness(1.2);
+        outline: none;
+      }
+
+      /* Ajusta o conteúdo para ficar abaixo da navbar fixa */
+      main {
+        margin-top: 70px; /* altura da navbar + um pouco */
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        width: 100%;
+        max-width: 600px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-align: center;
+        color: #9f1239;
+      }
+
+      .btn-container {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+      }
+
+      button {
+        background: linear-gradient(90deg, #e11d48, #db2777);
+        color: white;
+        font-weight: 600;
+        padding: 1.25rem 2.5rem;
+        border: none;
+        border-radius: 9999px; /* arredondado */
+        box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.5);
+        cursor: pointer;
+        font-size: 1.25rem;
+        transition: transform 0.2s ease, filter 0.2s ease;
+        flex: 1 1 40%;
+        max-width: 200px;
+      }
+
+      button:hover,
+      button:focus {
+        filter: brightness(1.1);
+        transform: scale(1.05);
+        outline: none;
+        box-shadow: 0 0 10px #db2777aa;
+      }
+
+      /* Confete */
+      .confetti-piece {
+        position: fixed;
+        width: 8px;
+        height: 12px;
+        background-color: #db2777;
+        opacity: 0.9;
+        top: -20px;
+        animation-name: fall;
+        animation-timing-function: linear;
+        animation-iteration-count: 1;
+        border-radius: 2px;
+        transform-origin: center;
+        z-index: 1500;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">Meu Projeto</div>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="segundaPagina.html">Segunda Página</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h1>Escolha com o coração 💖</h1>
+      <div class="btn-container">
+        <button id="btnSim" aria-label="Botão SIM!">SIM!</button>
+        <button id="btnComCerteza" aria-label="Botão Com certeza">
+          Com certeza
+        </button>
+      </div>
+    </main>
+
+    <script>
+      // Função para criar confete
+      function criarConfete() {
+        const confete = document.createElement("div");
+        confete.classList.add("confetti-piece");
+
+        // Posição horizontal aleatória
+        confete.style.left = Math.random() * window.innerWidth + "px";
+
+        // Duração e delay aleatórios para animação
+        confete.style.animationDuration = Math.random() * 1 + 1.5 + "s";
+        confete.style.animationDelay = Math.random() * 0.5 + "s";
+
+        // Cor aleatória rosa/vermelho
+        const cores = ["#db2777", "#f43f5e", "#be123c", "#ec4899", "#9d174d"];
+        confete.style.backgroundColor =
+          cores[Math.floor(Math.random() * cores.length)];
+
+        // Rotação aleatória
+        confete.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+        document.body.appendChild(confete);
+
+        // Remove o confete depois da animação
+        confete.addEventListener("animationend", () => {
+          confete.remove();
+        });
+      }
+
+      // Função para disparar vários confetes
+      function dispararConfete() {
+        const quantidade = 30;
+        for (let i = 0; i < quantidade; i++) {
+          setTimeout(criarConfete, i * 50);
+        }
+      }
+
+      // Botões para disparar confete ao clicar
+      document
+        .getElementById("btnSim")
+        .addEventListener("click", dispararConfete);
+      document
+        .getElementById("btnComCerteza")
+        .addEventListener("click", dispararConfete);
+    </script>
+  </body>
+</html>

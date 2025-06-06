@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>❤️ Para Ricardo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #fee2e2; /* rose-100 */
+        color: #7f1d1d; /* rose-900 */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 2rem 1rem;
+        font-family: system-ui, sans-serif;
+        user-select: none;
+      }
+
+      /* --- Navbar do primeiro código --- */
+      nav {
+        width: 100%;
+        background: linear-gradient(90deg, #e11d48, #db2777);
+        padding: 1rem 2rem;
+        box-shadow: 0 4px 6px rgba(219, 39, 119, 0.5);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+
+      nav .logo {
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: white;
+        user-select: none;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: filter 0.2s ease;
+      }
+
+      nav ul li a:hover,
+      nav ul li a:focus {
+        filter: brightness(1.2);
+        outline: none;
+      }
+
+      /* Ajuste para o conteúdo ficar abaixo da navbar fixa */
+      main {
+        margin-top: 70px; /* altura da navbar + um pouco */
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        max-width: 48rem;
+      }
+
+      .btn-envelope {
+        background-color: #f43f5e; /* rose-500 */
+        border-radius: 50%;
+        padding: 3.5rem;
+        font-size: 4rem;
+        color: white;
+        box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.5);
+        transition: background-color 0.3s, transform 0.3s;
+        cursor: pointer;
+      }
+      .btn-envelope:hover {
+        background-color: #e11d48; /* rose-600 */
+        transform: translateY(-5px);
+      }
+      .btn-envelope:focus {
+        outline: none;
+        box-shadow: 0 0 0 0.25rem rgba(244, 63, 94, 0.5);
+      }
+      .message-container {
+        background: white;
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        margin-top: 2.5rem;
+        padding: 2rem;
+        max-height: 90vh;
+        overflow-y: auto;
+        transform-origin: top center;
+        transition: opacity 0.7s ease, transform 0.7s ease, max-height 0.7s ease;
+        opacity: 0;
+        transform: scale(0.95);
+        max-height: 0;
+        pointer-events: none;
+        position: relative;
+        color: #7f1d1d;
+        user-select: text;
+      }
+      .message-container.show {
+        opacity: 1;
+        transform: scale(1);
+        max-height: 90vh;
+        pointer-events: auto;
+      }
+      .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.75rem;
+        color: #f43f5e;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+      .close-btn:hover {
+        color: #b91c1c; /* darker rose */
+      }
+      h2 {
+        font-weight: 600;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      h2 svg {
+        fill: #be123c; /* rose-600 */
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      p {
+        margin-bottom: 1rem;
+        font-size: 1.125rem;
+        line-height: 1.6;
+      }
+      .footer-text {
+        margin-top: 1.5rem;
+        font-weight: 600;
+      }
+
+      /* Confetti animation */
+      @keyframes floating {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .confetti {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 1050;
+        overflow: hidden;
+      }
+      .confetti img {
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        animation-name: floating;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-duration: 7s;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar do primeiro código -->
+    <nav>
+      <div class="logo">Para Ricardo</div>
+      <ul>
+        <li>
+          <a href="index.html" class="active" aria-current="page">Início</a>
+        </li>
+        <li><a href="segundaPagina.html">Segunda Página</a></li>
+      </ul>
+    </nav>
+
+    <!-- Tela 1 -->
+    <main
+      id="screen-one"
+      class="d-flex flex-column align-items-center justify-content-center"
+      style="flex: 1"
+    >
+      <button
+        class="btn-envelope"
+        aria-label="Abrir carta de amor"
+        id="openLetterBtn"
+        type="button"
+        aria-pressed="false"
+      >
+        💌
+      </button>
+
+      <div
+        id="messageContainer"
+        class="message-container"
+        role="region"
+        aria-live="polite"
+        aria-hidden="true"
+        tabindex="0"
+        aria-label="Carta de amor"
+      >
+        <button
+          class="close-btn"
+          aria-label="Fechar carta"
+          id="closeLetterBtn"
+          type="button"
+        >
+          ×
+        </button>
+        <h2>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+          Para Ricardo
+        </h2>
+
+        <p>
+          Querido Ricardo, essa semana que a gente ficou separado foi a pior da
+          minha vida. Parecia que eu estava no inferno. Eu fecho os olhos e tudo
+          que eu vejo é a gente. Tudo o que eu desejo é voltar a ser “nós”.
+        </p>
+        <p>
+          Eu fico lembrando do passado e sentindo falta dos seus abraços, dos
+          seus beijos, do seu carinho, da sua mão na minha pele, do calor do seu
+          corpo, do seu cheiro de quem não toma banho. Eu me vejo voltando pros
+          nossos finais de semana, pras noites juntos, pro dia em que você me
+          chamou na sua casa e a gente jogou Papers, Please, brincou, conversou,
+          riu... E no fim ainda fez tapioca pra mim.
+        </p>
+        <p>
+          Foi naquele dia que eu tive a certeza: você é o amor da minha vida. E
+          sempre vai ser. Doí tanto lembrar disso. E não porque eu não quero
+          sentir essa dor ou esse arrependimento, mas porque perder você
+          significa perder tudo de mais precioso que já tive.
+        </p>
+        <p>
+          Eu não consigo pensar em você sem sentir dor agora. Mas é porque ainda
+          te amo tanto. Eu estou arrependida por ter exagerado, por ter surtado,
+          por ter te magoado. Eu já sei onde eu errei, e eu aprendi com isso. Eu
+          te juro, com todo o meu coração: eu não quero errar mais.
+        </p>
+        <p>
+          Tudo o que eu quero agora é a chance de te mostrar que eu posso mudar
+          e que a gente pode ser feliz sem brigas exageradas, sem tempestades,
+          sem mágoas. Eu sei que você está quebrado por minha causa. Mas, por
+          favor, me deixa consertar isso. Me deixa cuidar de você e te fazer a
+          pessoa mais feliz do mundo.
+        </p>
+        <p>
+          Eu juro que tudo o que eu queria era uma máquina do tempo pra voltar
+          no tempo e fazer tudo certo desde o começo. Mas como isso não existe,
+          eu só posso fazer o meu melhor agora e te mostrar que dá pra
+          reconstruir.
+        </p>
+        <p>
+          Porque eu não quero viver num mundo onde eu não posso te tocar, te
+          abraçar, te chamar de amor. Eu não quero viver num mundo onde eu nunca
+          mais vou ouvir sua voz, ver sua mãe, seu irmão, sua família... Nunca
+          mais jogar com você, ver séries, sair pra rodízios, fazer
+          brincadeiras, te beijar, ouvir seus aprendizados, saber como foi seu
+          dia.
+        </p>
+        <p>
+          Só de imaginar isso, me parte o coração. Sei que agora parece que não
+          tem volta, mas eu tenho esperança que tudo isso vai voltar: voltar a
+          comer cheesecake com você, ver The Big Bang Theory, jogar Fortnite...
+        </p>
+        <p>
+          Meus finais de semana vão voltar a ser tristes e vazios sem você,
+          porque você é a luz na minha vida. É você que me faz feliz, e eu não
+          quero perder isso. E, no fundo, eu sei que você também não quer.
+        </p>
+        <p>
+          Por favor, não acaba com tudo isso por causa de uma semana
+          estressante. Você me faz uma pessoa melhor. Uma pessoa que se sente
+          amada como nunca foi antes. Você não sabe o quanto me faz bem.
+        </p>
+        <p>
+          Quando estou com você, é como se não existisse tristeza, dor, mágoa.
+          Apenas paz. Deitar no seu peito e sentir seu coração bater é a
+          sensação mais relaxante que existe.
+        </p>
+        <p>
+          Eu ainda sonho com o nosso futuro. Com o nosso apartamento com três
+          quartos e uma varanda, com os gatinhos que vamos adotar juntos, com as
+          refeições que vou cozinhar pra você.
+        </p>
+        <p>
+          Eu sei que você tem medo de um futuro comigo. Mas pensa: eu já mudei
+          antes. Você sabe que a gente é melhor junto do que separado. E por
+          mais que você ache que podemos ser só amigos, pra mim isso vai ser uma
+          tortura.
+        </p>
+        <p>
+          Te ver e não poder te abraçar, te tocar, te chamar de meu. Vai doer
+          tanto olhar pra você e saber que eu perdi tudo isso por ter sido
+          burra, impulsiva, insegura. E eu sei que vai doer em você também.
+          Porque o nosso amor sempre foi verdadeiro.
+        </p>
+        <p>
+          Não pensa só nas partes ruins. Elas são passageiras. Não deixa os
+          momentos difíceis fazerem você esquecer de todos os momentos bons que
+          são 1000 vezes mais fortes, mais felizes, mais reais.
+        </p>
+        <p>
+          Eu vejo você em tudo. Por onde eu ando, tudo me lembra você. Você está
+          em cada esquina da minha vida.
+        </p>
+        <p>
+          Talvez eu nunca tenha te contado, mas eu lembro exatamente do dia que
+          percebi que te amava. Eu estava na escola, e um professor substituto
+          começou a falar sobre o que é amar de verdade.
+        </p>
+        <p>
+          Ele me disse que, pra saber se a gente ama alguém, é só imaginar essa
+          pessoa totalmente dependente sem conseguir falar, andar, fazer nada
+          sozinha. E se mesmo assim você conseguisse se ver ao lado dela,
+          cuidando com amor, então era amor de verdade.
+        </p>
+        <p>
+          Naquele instante, eu pensei em você. E eu tive certeza que eu amava
+          você.
+        </p>
+        <p>
+          Sei que talvez minhas palavras não mudem nada. Mas eu preciso que você
+          saiba o quanto eu te amo.
+        </p>
+        <p>
+          Eu seria capaz de te dar um órgão, de pular na frente de um caminhão,
+          de cortar minha mão fora eu morreria por você, sem pensar duas vezes.
+          Porque eu não quero viver num mundo sem você.
+        </p>
+        <p>
+          Sei que eu dei muita mancada com você essa semana, mas os últimos dias
+          foram estressantes não que justifique, de forma alguma. Você não
+          merecia isso. Mas eu te imploro: me deixa continuar na sua vida.
+        </p>
+        <p>
+          Eu te amo mais do que as palavras podem expressar. Mais do que
+          qualquer erro que eu tenha cometido. Eu te amo com toda a minha alma,
+          e vou lutar para que a gente volte a ser feliz.
+        </p>
+        <p>
+          Eu me sinto perdida, vazia, sem você. Eu errei, sei disso, e dói
+          demais admitir que minhas atitudes machucaram quem eu mais amo no
+          mundo. Eu te peço, do fundo do meu coração, que me perdoe.
+        </p>
+        <p>
+          Você é a pessoa mais especial que eu já conheci. Seu jeito, seu olhar,
+          sua voz, tudo em você é uma melodia que acalma minha alma. Eu não
+          quero viver um dia sequer sem a chance de ter você de volta, de fazer
+          tudo certo, de reconstruir nosso amor com calma, respeito e carinho.
+        </p>
+        <p class="last">
+          Com todo o amor, arrependimento e esperança que existe em mim,
+        </p>
+      </div>
+    </main>
+
+    <script>
+      const openBtn = document.getElementById("openLetterBtn");
+      const closeBtn = document.getElementById("closeLetterBtn");
+      const messageContainer = document.getElementById("messageContainer");
+
+      openBtn.addEventListener("click", () => {
+        messageContainer.classList.add("show");
+        messageContainer.setAttribute("aria-hidden", "false");
+        openBtn.setAttribute("aria-pressed", "true");
+        messageContainer.focus();
+      });
+
+      closeBtn.addEventListener("click", () => {
+        messageContainer.classList.remove("show");
+        messageContainer.setAttribute("aria-hidden", "true");
+        openBtn.setAttribute("aria-pressed", "false");
+        openBtn.focus();
+      });
+    </script>
+  </body>
+</html>
